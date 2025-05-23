@@ -5,24 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Identificador de Placa - Nordeste 2</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f8f9fa;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-        }
-        .container {
-            max-width: 600px;
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        }
-        #resultado {
-            transition: all 0.3s ease;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container mt-5">
@@ -42,66 +25,6 @@
         <div id="resultado" class="alert mt-4 text-center"></div>
     </div>
 
-    <script>
-        function verificarPlaca() {
-            const placaInput = document.getElementById('placa').value;
-            const placa = placaInput.toUpperCase().replace(/[^A-Z0-9]/g, '');
-            const resultado = document.getElementById('resultado');
-
-            // Resetar estilos
-            resultado.classList.remove('alert-success', 'alert-danger', 'alert-warning');
-            resultado.innerHTML = '';
-
-            // Validação básica
-            if (placa.length !== 7) {
-                resultado.textContent = '❌ Placa inválida. Formato correto: LLLNLNN';
-                resultado.classList.add('alert-danger');
-                return;
-            }
-
-            // Validação do formato
-            const formato = /^[A-Z]{3}\d[A-Z]\d{2}$/;
-            if (!formato.test(placa)) {
-                resultado.textContent = '❌ Formato inválido. Use o padrão LLLNLNN';
-                resultado.classList.add('alert-danger');
-                return;
-            }
-
-            // Extrair letras iniciais
-            const letras = placa.substring(0, 3);
-
-            // Configuração dos estados
-            const estados = {
-                'Paraíba': /^JQ[K-N]|^NXV|^NXX|^O[L-O][A-Z]/,
-                'Pernambuco': /^JWF|^J[W-X][A-Z]|^KZ[A-Z]/,
-                'Rio Grande do Norte': /^KNW|^K[O-R][A-Z]|^OXP/
-            };
-
-            // Verificar correspondência
-            let estadoEncontrado = '';
-            for (const [estado, padrao] of Object.entries(estados)) {
-                if (padrao.test(letras)) {
-                    estadoEncontrado = estado;
-                    break;
-                }
-            }
-
-            // Exibir resultado
-            if (estadoEncontrado) {
-                resultado.innerHTML = `
-                    ✅ Placa identificada:<br>
-                    <strong>${placaInput}</strong><br>
-                    Estado: <strong>${estadoEncontrado}</strong>
-                `;
-                resultado.classList.add('alert-success');
-            } else {
-                resultado.innerHTML = `
-                    ⚠️ Placa não identificada nos estados:<br>
-                    Paraíba, Pernambuco ou Rio Grande do Norte
-                `;
-                resultado.classList.add('alert-warning');
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
